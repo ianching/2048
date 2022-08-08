@@ -1,7 +1,8 @@
 from random import randint
+from colorama import Fore, Style
+import colorama
 from WordForWordle import word_lst
-from colorama import init, Fore, Style
-init(autoreset=True)
+colorama.init(autoreset=True)
 
 class AnswerFunction:
     def __init__(self):
@@ -12,40 +13,40 @@ class CheckAnswer:
         self.answer = answer
         self.error_type = None
 
-    def have_error(self, w):
+    def have_error(self, guess):
         # Invalid syntax check
         abc = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u",
                "v", "w", "x", "y", "z"]
         abc2 = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T",
                 "U", "V", "W", "X", "Y", "Z"]
-        for i in w:
+        for i in guess:
             if i not in abc:
                 if i not in abc2:
                     self.error_type = "Invalid Syntax"
                     return True
 
         # Length error check
-        if len(w) != 5:
+        if len(guess) != 5:
             self.error_type = "Length error"
             return True
 
         # Not in Word List check
-        if w.lower() not in word_lst:
+        if guess.lower() not in word_lst:
             self.error_type = "Not in word list"
             return True
         return False
 
-    def chk_letters(self, w):
+    def chk_letters(self, guess):
         result = ""
         cnt = 0
-        w.title()
+        guess.title()
         for i in self.answer:
-            if w[cnt] == i:
-                result = result + Fore.LIGHTGREEN_EX + (w[cnt]).lower()
-            elif w[cnt] in self.answer:
-                result = result + Fore.LIGHTYELLOW_EX + (w[cnt]).lower()
+            if guess[cnt] == i:
+                result = result + Fore.LIGHTGREEN_EX + (guess[cnt]).lower()
+            elif guess[cnt] in self.answer:
+                result = result + Fore.LIGHTYELLOW_EX + (guess[cnt]).lower()
             else:
-                result = result + Fore.LIGHTBLACK_EX + (w[cnt]).lower()
+                result = result + Fore.LIGHTBLACK_EX + (guess[cnt]).lower()
             cnt += 1
         return result
 
@@ -61,15 +62,13 @@ class CheckAnswer:
 class StartGame:
     def __init__(self):
         self.answer = AnswerFunction().answer
-        print("""\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
-                  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n""")
         print(Fore.LIGHTGREEN_EX + "Wo" + Fore.LIGHTYELLOW_EX + "rd" + Fore.LIGHTGREEN_EX + "le"
               + Fore.RESET + "\n\n\n______________________________________________________")
         self.chk_ans = CheckAnswer(self.answer)
         self.tries = 1
         self.left_tries = 10
         self.previous_guess = []
-        self.input = input(Fore.RESET + "Type S when ready:").lower()
+        self.input = input("Type S when ready:").lower()
         while self.input != "s":
             self.input = input("Type S when ready:").lower()
         print("""\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"

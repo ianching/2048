@@ -176,3 +176,5 @@ class StartGame:
             print("You lose")
             return
         self.control()
+
+TZFE2048.StartGame(4)
